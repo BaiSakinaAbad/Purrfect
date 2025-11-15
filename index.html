@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PURRFECT</title>
+
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+
+</head>
+<body>
+
+<!-- HEADER SECTION-->
+    <section class = "navbar"> <!-- NAVBAR WITH LINKS TO HOME, COMPILER, ABOUT-->
+        <nav>
+            <a class="logo" href="#">PURRFECT</a> <!-- pede to baguhin ng image-->
+            <div>
+            <a href="#home">Home</a>
+            <a href="#compiler">Compiler</a>
+            <a href="#about">About</a>
+            </div>
+        </nav>
+
+<!-- HOME note: explain here the steps on how to use the system, etc.-->
+        <a name = "home"></a>
+           <div class = "content">
+            <h1>WELCOME TO <span class = "purrfect">PURRFECT</span></h1>
+            </div>   
+    </section>
+
+    <!-- COMPILER SECTION-->
+    <a name = "compiler"></a>
+    <section class = "compiler">
+        <div class = "center-div">
+            <div class="container">
+
+                <div class="outputDiv"> <!-- dito nakalagay yung output "pass or fail", result text area-->
+                   <span id = "output">OUTPUT</span> 
+                </div>
+
+            </div>
+            
+            <div class = "container">
+                <div class="buttons">
+                    <div class="listButtons"> <!-- BUTTONS FOR OPEN FILE, LEXICAL, SYNTAX, SEMANTIC, CLEAR-->
+                        <div>
+                            <input type="file" id="fileInput" style="display:none" onchange="openFile()">
+                            <button class="btn" onclick="document.getElementById('fileInput').click()">OPEN FILE</button>
+                            <button class="btn" id = "lexical-btn" onclick="lexicalAnalyzer()" disabled>LEXICAL</button>
+                            <button class="btn" id = "syntax-btn" onclick="syntaxAnalyzer()" disabled>SYNTAX</button>
+                            <button class="btn" id = "semantic-btn"onclick="semanticAnalyzer()" disabled>SEMANTIC</button>
+                            <button class="btn" onclick="eraseText()">CLEAR</button>
+                        </div>
+                    </div>
+                </div>
+
+<!-- TEXT AREAD FOR VARIABLE DECLARATION -->
+                <div class="content-area"> <!-- DITO NAKALAGAY YUNG TEXT AREA NA PAGLALAGYAN NG CODE (code text area)-->
+                    <div class="textAreaDiv">
+                        <textarea class = "fileContent" type = "text" placeholder="Type your scipt here or drag a file!" id = "fileContent"></textarea>
+                        
+                        <script>
+                            const textArea = document.getElementById("fileContent");
+                            const button = document.getElementById("lexical-btn");
+                    
+                            textArea.addEventListener("input", () => { // Enable button only if there is text in the textarea
+                                if (textArea.value.trim()) {
+                                    button.disabled = false;
+                                } else {
+                                    button.disabled = true;
+                                }
+                            });
+                        </script>
+                        
+                    </div>
+            
+                </div>
+            
+            </div>
+        </div>
+
+    </section>
+
+<!-- ABOUT SECTION-->
+    <a name = "about"></a>
+    <section class = "about">
+      
+
+    </section>
+
+<!-- FOOTER -->
+    <footer>
+       <p>Created by Team PURRFECT &copy; 2024</p>
+    </footer>
+
+
+</body>
+</html>
