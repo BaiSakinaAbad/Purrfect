@@ -48,9 +48,9 @@
                         <div>
                             <input type="file" id="fileInput" style="display:none" onchange="openFile()">
                             <button class="btn" onclick="document.getElementById('fileInput').click()">OPEN FILE</button>
-                            <button class="btn" id = "lexical-btn" onclick="lexicalAnalyzer()" disabled>LEXICAL</button>
-                            <button class="btn" id = "syntax-btn" onclick="syntaxAnalyzer()" disabled>SYNTAX</button>
-                            <button class="btn" id = "semantic-btn"onclick="semanticAnalyzer()" disabled>SEMANTIC</button>
+                            <button class="btn" id = "lexicalbtn" onclick="lexicalAnalyzer()" disabled>LEXICAL</button>
+                            <button class="btn" id = "syntaxbttn" onclick="syntaxAnalyzer()" disabled>SYNTAX</button>
+                            <button class="btn" id = "semanticbtn"onclick="semanticAnalyzer()" disabled>SEMANTIC</button>
                             <button class="btn" onclick="eraseText()">CLEAR</button>
                         </div>
                     </div>
@@ -60,20 +60,6 @@
                 <div class="content-area"> <!-- DITO NAKALAGAY YUNG TEXT AREA NA PAGLALAGYAN NG CODE (code text area)-->
                     <div class="textAreaDiv">
                         <textarea class = "fileContent" type = "text" placeholder="Type your scipt here or drag a file!" id = "fileContent"></textarea>
-                        
-                        <script>
-                            const textArea = document.getElementById("fileContent");
-                            const button = document.getElementById("lexical-btn");
-                    
-                            textArea.addEventListener("input", () => { // Enable button only if there is text in the textarea
-                                if (textArea.value.trim()) {
-                                    button.disabled = false;
-                                } else {
-                                    button.disabled = true;
-                                }
-                            });
-                        </script>
-                        
                     </div>
             
                 </div>
@@ -89,12 +75,14 @@
       
 
     </section>
-
+    
 <!-- FOOTER -->
     <footer>
        <p>Created by Team PURRFECT &copy; 2024</p>
     </footer>
 
-
+    <script src="js/script.js"></script>
+</body>
+</html>
 </body>
 </html>
