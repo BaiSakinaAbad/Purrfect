@@ -74,6 +74,11 @@ document.addEventListener('DOMContentLoaded', function() {
     window.syntaxAnalyzer = function() {
             let lines = fileContent.value.split("\n");
 // will update this, still learning how BNF works
+         lines.forEach((line, i) => {
+            console.log(`Line ${i+1}:`, line);
+        });
+
+        
 
     };
     window.semanticAnalyzer = function() {
