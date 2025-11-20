@@ -77,10 +77,45 @@ document.addEventListener('DOMContentLoaded', function() {
          lines.forEach((line, i) => {
             console.log(`Line ${i+1}:`, line);
         });
+        for (let i = 0; i < lines.length; i++) {
+            let line = lines[i].trim();
+            if (line === "") continue;
 
-        
+            console.log(`Checking syntax of line ${i+1}: "${line}"`);
 
+            if (!line.endsWith(";")) {
+                console.error(`SYNTAX ERROR: Missing semicolon at line ${i+1}`);
+                output.textContent = `SYNTAX ERROR (Line ${i+1}): Missing semicolon`;
+                return;
+            }
+
+            let words = line.replace(";", "").split(/\s+/);
+
+            let type = words[0];
+            let identifier = words[1];
+
+            console.log(`Parsed type: "${type}", identifier: "${identifier}"`);
+
+            if (!validTypes.includes(type)) {
+                console.error(`SYNTAX ERROR: Invalid datatype "${type}" at line ${i+1}`);
+                output.textContent = `SYNTAX ERROR (Line ${i+1}): Invalid data type "${type}"`;
+                return;
+            }
+
+            if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(identifier)) {
+                console.error(`SYNTAX ERROR: Invalid identifier "${identifier}" at line ${i+1}`);
+                output.textContent = `SYNTAX ERROR (Line ${i+1}): Invalid identifier "${identifier}"`;
+                return;
+            }
+
+            console.log(`Syntax OK at line ${i+1}`);
+        }
+
+        output.textContent = "SYNTAX ANALYSIS PASSED";
+        console.log("Pasado mga bossing sa syntax GYAHAHA");
+        // need further testing, i give up for now
     };
+    
     window.semanticAnalyzer = function() {
     };
                 
