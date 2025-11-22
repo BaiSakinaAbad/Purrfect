@@ -84,8 +84,8 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(`Checking syntax of line ${i+1}: "${line}"`);
 
             if (!line.endsWith(";")) {
-                console.error(`SYNTAX ERROR: Missing semicolon at line ${i+1}`);
-                output.textContent = `SYNTAX ERROR (Line ${i+1}): Missing semicolon`;
+                console.error(`SYNTAX ERROR: not ending in semicolon ${i+1}`);
+                output.textContent = `SYNTAX ERROR (Line ${i+1}): not ending in semicolon`;
                 return;
             }
 
@@ -113,10 +113,55 @@ document.addEventListener('DOMContentLoaded', function() {
 
         output.textContent = "SYNTAX ANALYSIS PASSED";
         console.log("Pasado mga bossing sa syntax GYAHAHA");
+        semanBtn.disabled = false;
+        lexiBtn.disabled = true;
+        
         // need further testing, i give up for now
     };
     
     window.semanticAnalyzer = function() {
+
+        let lines = fileContent.value.split("\n");
+
+        for (let i = 0; i < lines.length; i++) {
+            let line = lines[i].trim();
+            if (line === "") continue;
+
+            console.log(`Analyzing semantics of line ${i+1}: "${line}"`);
+
+            line = line.replace(";", "");
+            let type = line.split(/\s+/)[0];
+
+            let rest = line.substring(type.length).trim();
+
+            console.log(`Type: "${type}", Remaining: "${rest}"`);
+
+            if (rest.includes("=")) {
+                let [identifier, value] = rest.split("=");
+                identifier = identifier.trim();
+                value = value.trim();
+
+                console.log(`Identifier: "${identifier}", Assigned value: "${value}"`);
+                console.log(`Checking if value matches type "${type}"`);
+
+                let valid = checkValueType(type, value);
+                console.log(`Type check result:`, valid);
+
+                if (!valid) {
+                    console.error(`SEMANTIC ERROR at line ${i+1}: Value "${value}" invalid for type "${type}"`);
+                    output.textContent = `SEMANTIC ERROR (Line ${i+1}): Value "${value}" not valid for type ${type}`;
+                    return;
+                }
+            } else {
+                console.log(`No assignment on line ${i+1}, skipping type check...`);
+            }
+        }
+
+        output.textContent = "SEMANTIC ANALYSIS PASSED ";
+        console.log("SEMANTIC ANALYZER PASSED - saki");
+        syntaxBtn.disabled = true;
+        lexiBtn.disabled = true;
+
     };
                 
     function checkValueType(type, value) {
