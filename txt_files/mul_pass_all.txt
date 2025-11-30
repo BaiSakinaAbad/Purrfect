@@ -1,0 +1,6 @@
+int age = 21;
+float height = 5.9f;
+char grade = 'A';
+boolean isGood = true;
+double cost = 30.1;
+String want = "Coffee";

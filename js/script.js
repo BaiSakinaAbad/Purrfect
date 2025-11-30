@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const validTypes = ["int", "float", "double", "boolean", "char", "String"];
 
-
+    //Assigned functions to window object so they're accessible from HTML onclick handlers
     window.openFile = function() {
         const file = fileInput.files[0];
         console.log("Opening file:", file?.name);
@@ -119,50 +119,86 @@ document.addEventListener('DOMContentLoaded', function() {
         // need further testing, i give up for now
     };
     
-    window.semanticAnalyzer = function() {
+    window.semanticAnalyzer = function () {
 
-        let lines = fileContent.value.split("\n");
+    let lines = fileContent.value.split("\n");
 
-        for (let i = 0; i < lines.length; i++) {
-            let line = lines[i].trim();
-            if (line === "") continue;
+    for (let i = 0; i < lines.length; i++) {
+        let originalLine = lines[i];
+        let line = originalLine.trim();
 
-            console.log(`Analyzing semantics of line ${i+1}: "${line}"`);
+        if (line === "") continue;
 
-            line = line.replace(";", "");
-            let type = line.split(/\s+/)[0];
+        console.log(`\n--- SEMANTIC ANALYZING LINE ${i+1} ---`);
+        console.log(`Raw line: "${originalLine}"`);
+        console.log(`Trimmed line: "${line}"`);
 
-            let rest = line.substring(type.length).trim();
-
-            console.log(`Type: "${type}", Remaining: "${rest}"`);
-
-            if (rest.includes("=")) {
-                let [identifier, value] = rest.split("=");
-                identifier = identifier.trim();
-                value = value.trim();
-
-                console.log(`Identifier: "${identifier}", Assigned value: "${value}"`);
-                console.log(`Checking if value matches type "${type}"`);
-
-                let valid = checkValueType(type, value);
-                console.log(`Type check result:`, valid);
-
-                if (!valid) {
-                    console.error(`SEMANTIC ERROR at line ${i+1}: Value "${value}" invalid for type "${type}"`);
-                    output.textContent = `SEMANTIC ERROR (Line ${i+1}): Value "${value}" not valid for type ${type}`;
-                    return;
-                }
-            } else {
-                console.log(`No assignment on line ${i+1}, skipping type check...`);
-            }
+        // Remove trailing semicolon
+        if (line.endsWith(";")) {
+            line = line.slice(0, -1).trim();
+            console.log(`Removed semicolon → "${line}"`);
         }
 
-        output.textContent = "SEMANTIC ANALYSIS PASSED ";
-        console.log("SEMANTIC ANALYZER PASSED - saki");
-        syntaxBtn.disabled = true;
-        lexiBtn.disabled = true;
+        // Extract datatype (first token)
+        let parts = line.split(/\s+/);
+        let type = parts[0];
 
-    };
+        console.log(`Detected type = "${type}"`);
+
+        // VALIDATE datatype
+        const allowedTypes = ["int", "float", "double", "boolean", "char", "String", "string"];
+
+        if (!allowedTypes.includes(type)) {
+            output.textContent = `SEMANTIC ERROR (Line ${i+1}): Unknown datatype "${type}"`;
+            console.error(`Unknown datatype found`);
+            return;
+        }
+
+        // Extract the rest after datatype
+        let rest = line.substring(type.length).trim();
+        console.log(`Remaining expression: "${rest}"`);
+
+        if (rest.includes("=")) {
+
+            let [identifier, value] = rest.split("=");
+
+            identifier = identifier.trim();
+            value = value.trim();
+
+            console.log(`Identifier: "${identifier}"`);
+            console.log(`Assigned value: "${value}"`);
+            console.log(`Checking type compatibility...`);
+
+            // FIX CASE: if value has spaces (string) → rejoin
+            if (value.includes(" ")) {
+                console.warn("Value had spaces — rechecking string literal rules.");
+            }
+
+            // Use the improved checker
+            let valid = checkValueType(type, value);
+
+            console.log(`checkValueType("${type}", "${value}") → ${valid}`);
+
+            if (!valid) {
+                console.error(`SEMANTIC ERROR at line ${i+1}: Value "${value}" invalid for ${type}`);
+                output.textContent = `SEMANTIC ERROR (Line ${i+1}): Value "${value}" not valid for type "${type}"`;
+                return;
+            }
+
+        } else {
+            console.log(`No assignment (=) found — semantic check skipped.`);
+        }
+    }
+
+    // If all lines passed
+    output.textContent = "SEMANTIC ANALYSIS PASSED";
+    console.log("SEMANTIC ANALYZER PASSED!");
+
+    // Disable previous buttons(except erase)
+    syntaxBtn.disabled = true;
+    lexiBtn.disabled = true;
+};
+
                 
     function checkValueType(type, value) {
         console.log(`Checking type: ${type}, value: ${value}`);
@@ -171,6 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
             case "int":
                 return /^[0-9]+$/.test(value);
             case "float":
+                 return /^[0-9]+(\.[0-9]+)?[fF]$/.test(value);
             case "double":
                 return /^[0-9]+(\.[0-9]+)?$/.test(value);
             case "boolean":
