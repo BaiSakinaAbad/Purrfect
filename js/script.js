@@ -64,12 +64,18 @@ document.addEventListener('DOMContentLoaded', function() {
    // LEXICAL PHASE LOGIC
     window.lexicalAnalyzer = function() {
         
-        let tokens = fileContent.value.split(/\s+/);
+        let tokens = fileContent.value.split(/\s+/); // split by whitespace
         let tokenPattern = /^[a-zA-Z_][a-zA-Z0-9_]*$|^[0-9]+(\.[0-9]+)?$|^"[^"]*"|'[^']'|=|;$/;
-
+        // identifiers  /^[a-zA-Z_][a-zA-Z0-9_]*$/
+        // numbers  /^[0-9]+(\.[0-9]+)?$/
+        // strings  /^"[^"]*"$/
+        // chars  /^'[^']'$/
+        // operator =  /^=$/
+        // delimiter ;  /^;$/
+    
         console.log("Tokens found:", tokens);
 
-        for (let t of tokens) {
+        for (let t of tokens) { // iterate through each token and check validity(if isValid, else error)
             if (t.trim() === "") continue;
 
             console.log("Checking token:", t);
@@ -109,20 +115,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            let words = line.replace(";", "").split(/\s+/); // 
+            let words = line.replace(";", "").split(/\s+/); 
 
             let type = words[0];
             let identifier = words[1];
 
-            console.log(`Parsed type: "${type}", identifier: "${identifier}"`);
+            console.log(`Parsed type: "${type}", identifier: "${identifier}"`); // log parsed components
 
-            if (!validTypes.includes(type)) {
+            if (!validTypes.includes(type)) { // check if datatype is valid
                 console.error(`SYNTAX ERROR: Invalid datatype "${type}" at line ${i+1}`);
                 output.textContent = `SYNTAX ERROR (Line ${i+1}): Invalid data type "${type}"`;
                 return;
             }
 
-            if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(identifier)) {
+            if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(identifier)) { // check if identifier is valid
                 console.error(`SYNTAX ERROR: Invalid identifier "${identifier}" at line ${i+1}`);
                 output.textContent = `SYNTAX ERROR (Line ${i+1}): Invalid identifier "${identifier}"`;
                 return;
@@ -149,49 +155,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (line === "") continue;
 
-        console.log(`\n--- SEMANTIC ANALYZING LINE ${i+1} ---`);
+        console.log(`\nSEMANTIC ANALYZING LINE ${i+1}`);
         console.log(`Raw line: "${originalLine}"`);
         console.log(`Trimmed line: "${line}"`);
 
         // Remove trailing semicolon
         if (line.endsWith(";")) {
             line = line.slice(0, -1).trim();
-            console.log(`Removed semicolon → "${line}"`);
+            console.log(`Removed ; at "${line}"`);
         }
 
         // Extract datatype (first token)
         let parts = line.split(/\s+/);
         let type = parts[0];
 
-        console.log(`Detected type = "${type}"`);
+        console.log(`type = "${type}"`);
 
         // VALIDATE datatype
         const allowedTypes = ["int", "float", "double", "boolean", "char", "String", "string"];
 
-        if (!allowedTypes.includes(type)) {
+        if (!allowedTypes.includes(type)) { // handle unknown datatype
             output.textContent = `SEMANTIC ERROR (Line ${i+1}): Unknown datatype "${type}"`;
             console.error(`Unknown datatype found`);
             return;
         }
 
         // Extract the rest after datatype
-        let rest = line.substring(type.length).trim();
-        console.log(`Remaining expression: "${rest}"`);
+        let rest = line.substring(type.length).trim(); // get the rest of the line after datatype
+        console.log(`Remaining expression: "${rest}"`); 
 
-        if (rest.includes("=")) {
+        if (rest.includes("=")) {// check if there's an assignment
 
             let [identifier, value] = rest.split("=");
 
-            identifier = identifier.trim();
+            identifier = identifier.trim(); 
             value = value.trim();
 
             console.log(`Identifier: "${identifier}"`);
             console.log(`Assigned value: "${value}"`);
-            console.log(`Checking type compatibility...`);
 
-            // FIX CASE: if value has spaces (string) → rejoin
+            // if value has spaces (string) → rejoin
             if (value.includes(" ")) {
-                console.warn("Value had spaces — rechecking string literal rules.");
+                console.warn("Value had spaces");
             }
 
             // Use the improved checker
