@@ -5,14 +5,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const lexiBtn = document.getElementById('lexicalbtn');
     const syntaxBtn = document.getElementById('syntaxbttn');
     const semanBtn = document.getElementById('semanticbtn');
+    const eraseBtn = document.getElementById('clearbtn');
     const output = document.getElementById('output');
+
+    // Initial state. only OPEN FILE is enabled
+    lexiBtn.disabled = true;
+    syntaxBtn.disabled = true;
+    semanBtn.disabled = true;
+    eraseBtn.disabled = true;
 
     const validTypes = ["int", "float", "double", "boolean", "char", "String"];
 
     //Assigned functions to window object so they're accessible from HTML onclick handlers
     window.openFile = function() {
         const file = fileInput.files[0];
-        console.log("Opening file:", file?.name);
+        console.log("file:", file?.name);
 
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -22,21 +29,25 @@ document.addEventListener('DOMContentLoaded', function() {
             lexiBtn.disabled = false;// only lexical button is open here
             syntaxBtn.disabled = true;
             semanBtn.disabled = true;
+            eraseBtn.disabled = false;
 
             output.textContent = "OUTPUT";
         };
         reader.readAsText(file);
+
     };
 
    
     window.eraseText = function() {
         
         fileContent.value = ''; 
-        console.log("successfully erased");
+        console.log("erased");
 
         lexiBtn.disabled = true;
         syntaxBtn.disabled = true;
         semanBtn.disabled = true;
+         eraseBtn.disabled = true;  // Disable erase button after using it because by then the file is not loaded yet
+
 
         output.textContent = "OUTPUT";
     };
@@ -77,19 +88,19 @@ document.addEventListener('DOMContentLoaded', function() {
          lines.forEach((line, i) => {
             console.log(`Line ${i+1}:`, line);
         });
-        for (let i = 0; i < lines.length; i++) {
-            let line = lines[i].trim();
+        for (let i = 0; i < lines.length; i++) { // iterate line by line to read file
+            let line = lines[i].trim(); 
             if (line === "") continue;
 
             console.log(`Checking syntax of line ${i+1}: "${line}"`);
 
-            if (!line.endsWith(";")) {
-                console.error(`SYNTAX ERROR: not ending in semicolon ${i+1}`);
-                output.textContent = `SYNTAX ERROR (Line ${i+1}): not ending in semicolon`;
+            if (!line.endsWith(";")) {  // first to check if ends with semicolon
+                console.error(`SYNTAX ERROR`);
+                output.textContent = `SYNTAX ERROR (Line ${i+1})`;
                 return;
             }
 
-            let words = line.replace(";", "").split(/\s+/);
+            let words = line.replace(";", "").split(/\s+/); // 
 
             let type = words[0];
             let identifier = words[1];

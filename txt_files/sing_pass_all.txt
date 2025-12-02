@@ -1,1 +1,1 @@
-int age = 21;
+float weigth = 50.1f;

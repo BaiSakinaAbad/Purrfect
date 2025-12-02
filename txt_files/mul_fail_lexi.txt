@@ -1,0 +1,3 @@
+int age = 17;
+String name = "Kyoko";
+<script> grade = 1;
