@@ -1,3 +1,2 @@
-int age = 17;
+int age = 17.2;
 String name = "Kyoko";
-double grade = 1;
