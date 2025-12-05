@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         switch(type) {
             case "int":
-                return /^[0-9]+$/.test(value); // return true if value matches integer pattern
+                return /^[0-9]+$/.test(value); // return true if value matches pattern
             case "float":
                  return /^[0-9]+(\.[0-9]+)?[f]$/.test(value);
             case "double":
