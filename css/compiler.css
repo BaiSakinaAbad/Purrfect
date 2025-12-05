@@ -352,16 +352,16 @@ body::before {
     FOOTER (RESPONSIVE)
 ************************************/
 footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
     background: #111;
     padding: 1rem 0;
     text-align: center;
     color: white;
-
     border-top: 2px solid #764ba2;
-
-    margin-top: 0.7rem; /* spacing from console */
-    position: relative;
+    z-index: 100;
 }
 
 footer p {
@@ -370,11 +370,15 @@ footer p {
     letter-spacing: 0.5px;
 }
 
+/* Add bottom padding to body to prevent content overlap */
+body {
+    padding-bottom: 80px;
+}
+
 /* Tablet */
 @media (max-width: 900px) {
     footer {
         padding: 1rem 0;
-        margin-top: 2rem;
     }
 
     footer p {
@@ -386,11 +390,14 @@ footer p {
 @media (max-width: 600px) {
     footer {
         padding: 1rem 0;
-        margin-top: 1.5rem;
     }
 
     footer p {
         font-size: 0.9rem;
+    }
+
+    body {
+        padding-bottom: 70px;
     }
 }
 
@@ -398,10 +405,13 @@ footer p {
 @media (max-width: 430px) {
     footer {
         padding: 0.9rem 0;
-        margin-top: 1.2rem;
     }
 
     footer p {
         font-size: 0.85rem;
+    }
+
+    body {
+        padding-bottom: 65px;
     }
 }
