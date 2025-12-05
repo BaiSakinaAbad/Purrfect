@@ -15,15 +15,12 @@ html, body {
 }
 
 
-/************************************
-    PAGE BACKGROUND (BLURRED)
-************************************/
-body {
-    position: relative;
+.compiler-page {
+    position: relative !important;
+    background: none !important; /* override gray */
 }
 
-/* Blurred full-page background */
-body::before {
+.compiler-page::before {
     content: "";
     position: fixed;
     top: 0;
@@ -57,7 +54,7 @@ body::before {
 
     width: 95%;
     max-width: 900px;
-    aspect-ratio: 2.2;   /* wide handheld look on large screens */
+    aspect-ratio: 2.2;
 
     background: linear-gradient(180deg, #ffb7d5, #f49dc4);
     border-radius: 45px;
@@ -67,14 +64,23 @@ body::before {
     image-rendering: crisp-edges;
 
     box-shadow:
-        0px 15px 30px rgba(0,0,0,0.25),
-        inset 0px 15px 25px rgba(255 ,255,255,0.6),
-        inset 0px -15px 25px rgba(0,0,0,0.15);
+        /* Outer shadow */
+        0px 18px 35px rgba(0,0,0,0.28),
+
+        /* Inner top highlight */
+        inset 0px 12px 22px rgba(255, 196, 230, 0.75),
+
+        /* Stronger inner edge glow */
+        inset 0px 0px 15px rgba(255, 192, 224, 0.35),
+
+        /* Inner bottom dark shadow */
+        inset 0px -18px 28px rgba(0,0,0,0.28);
 
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 
 
 /************************************
@@ -332,7 +338,7 @@ body::before {
        /* no overlap */
         display: block;
         top: 95px;
-        right: 180px;
+        right: 205px;
         margin: 0 auto 12px auto;  /* centered */
         width: 140px;
     }

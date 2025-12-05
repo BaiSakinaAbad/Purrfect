@@ -10,7 +10,10 @@ html, body {
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
     color: #222;
     line-height: 1.4;
+
+    background: #e8ecff;   /* soft gray background */
 }
+
 
 
 /************************************
@@ -78,8 +81,9 @@ html, body {
 ************************************/
 .home-section {
     text-align: center;
-    padding: 11rem 1rem;
+    padding: 10rem 1rem 9.5rem 1rem;   /* reduced top + bottom padding */
 }
+
 
 .purrfect {
     color: #d62828;
@@ -90,9 +94,6 @@ html, body {
     margin-top: 1rem;
     font-size: 1.1rem;
 }
-
-
-
 
 /************************************
     RESPONSIVE ADJUSTMENTS
@@ -212,16 +213,15 @@ body {
 .about-page {
     width: 90%;
     max-width: 900px;
-    margin: 3rem auto;
-    padding: 6rem 0;
-
+    margin: 2rem auto;      /* reduces top/bottom spacing */
+    padding-top: 1rem;      /* moves the header upward */
+    padding-bottom: 1.2rem;   /* slight bottom spacing */
     text-align: center;
     line-height: 1.7;
 }
 
 .about-page h1 {
-    font-size: 2rem;
-    margin-bottom: 1.1rem;
+    margin-top: 0;          /* removes extra spacing above header */
 }
 
 .about-page p {
@@ -268,4 +268,54 @@ body {
         bottom: 12px;
         right: 10px;
     }
+}
+/************************************
+    MEET THE TEAM SECTION
+************************************/
+.team-header {
+    font-size: 3rem;
+    margin-top: 0rem;
+    margin-bottom: 4rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.team-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem !important;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    text-align: center;
+    margin-top: -20px;
+    width: 200px;
+}
+
+.team-member img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #667eea;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
+    margin-bottom: 0.8rem;
+}
+
+.team-member h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.team-member a {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.team-member a:hover {
+    color: #764ba2;
 }
