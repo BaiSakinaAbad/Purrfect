@@ -1,0 +1,407 @@
+/************************************
+    RESET / BASE
+************************************/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.4;
+    overflow-x: hidden;
+}
+
+
+/************************************
+    PAGE BACKGROUND (BLURRED)
+************************************/
+body {
+    position: relative;
+}
+
+/* Blurred full-page background */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: url("../assets/Compiler Background 1.jpg") no-repeat center center;
+    background-size: cover;
+
+    filter: blur(5px);
+    transform: scale(1.1);
+    z-index: -1;
+}
+
+
+/************************************
+    CONSOLE BASE (DESKTOP / TABLET)
+************************************/
+.console-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 75px;
+    padding-left: 45px;
+    padding-right: 45px;
+    padding-bottom: 14px;
+}
+
+.console {
+    position: relative;
+
+    width: 95%;
+    max-width: 900px;
+    aspect-ratio: 2.2;   /* wide handheld look on large screens */
+
+    background: linear-gradient(180deg, #ffb7d5, #f49dc4);
+    border-radius: 45px;
+    padding: 20px;
+
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+
+    box-shadow:
+        0px 15px 30px rgba(0,0,0,0.25),
+        inset 0px 15px 25px rgba(255 ,255,255,0.6),
+        inset 0px -15px 25px rgba(0,0,0,0.15);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/************************************
+    SCREEN (DESKTOP / TABLET)
+************************************/
+.screen {
+    position: absolute;
+
+    width: 60%;
+    height: 88%;
+    min-height: 250px;
+
+    background: #000;
+    border-radius: 18px;
+    padding: 10px;
+
+    border: 5px solid #000000;
+    box-shadow:
+        0px 8px 15px rgba(0,0,0,0.4),
+        inset 0 0 12px rgb(171, 12, 192);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.output-box {
+    width: 100%;
+    background: #111;
+    border: 2px solid rgb(171, 12, 192);
+    padding: 6px;
+    color: #fff;
+    font-family: "Courier New", monospace;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 10px;
+
+    box-shadow: inset 0 0 8px rgba(171, 12, 192);
+}
+
+.screen textarea {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+
+    background: #000;
+    border: 2px solid rgb(171, 12, 192);
+    color: #fff;
+    font-family: "Courier New", monospace;
+    padding: 10px;
+    border-radius: 8px;
+
+    resize: none;
+    box-shadow: inset 0 0 10px rgba(255, 0, 255, 0.4);
+}
+
+
+/************************************
+    BUTTON PANELS (DESKTOP / TABLET)
+************************************/
+.left-panel,
+.right-panel {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.left-panel {
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.right-panel {
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+/************************************
+    ROUND BUTTONS
+************************************/
+.side-btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+
+    border: 3px solid #fff;
+    background: radial-gradient(circle at 30% 30%, #ff72af, #e42d6a);
+
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0px 6px 12px rgba(0,0,0,0.3),
+        inset 0px 4px 10px rgba(255,255,255,0.9),
+        inset 0px -4px 10px rgba(0,0,0,0.2);
+}
+
+.side-btn:hover {
+    transform: translateY(-4px);
+}
+
+.side-btn:disabled {
+    background: #f5bccd;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.danger {
+    background: radial-gradient(circle at 30% 30%, #cc5656, #ee0000) !important;
+    color: white;
+}
+
+
+/************************************
+    RESPONSIVE LAYOUT CHANGES
+************************************/
+
+/* TABLET */
+@media (max-width: 900px) {
+    .screen {
+        width: 65%;
+        height: 84%;
+    }
+    .side-btn {
+        width: 65px;
+        height: 65px;
+    }
+}
+
+/* SMALL TABLET / LANDSCAPE PHONE */
+@media (max-width: 700px) {
+    .screen {
+        width: 70%;
+        height: 82%;
+    }
+    .side-btn {
+        width: 55px;
+        height: 55px;
+    }
+    .left-panel { left: 2%; }
+    .right-panel { right: 2%; }
+}
+
+/* MOBILE PORTRAIT – STACKED LAYOUT */
+@media (max-width: 600px) {
+
+    .console-container {
+        padding-top: 90px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .console {
+        max-width: 480px;
+        width: 100%;
+        aspect-ratio: auto;    /* allow auto height */
+        height: auto;
+        border-radius: 30px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 16px;
+    }
+
+    /* Screen becomes normal block, full width */
+    .screen {
+        position: static;
+        width: 100%;
+        height: auto;
+        min-height: 220px;
+        margin-bottom: 14px;
+    }
+
+    /* Buttons become rows under the screen */
+    .left-panel,
+    .right-panel {
+        position: static;
+        transform: none;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 8px;
+    }
+
+    .side-btn {
+        width: 52px;
+        height: 52px;
+        font-size: 10px;
+    }
+}
+
+/* VERY SMALL MOBILE */
+@media (max-width: 430px) {
+    .console {
+        padding: 12px;
+    }
+
+    .side-btn {
+        width: 46px;
+        height: 46px;
+        font-size: 9px;
+    }
+}
+/************************************
+    FLOATING CAT GIF ABOVE CONSOLE
+************************************/
+.cat-gif {
+    position: absolute;
+    top: 15px;        /* moves gif downward */
+    right: 280px;       /* keeps it on the right side */
+    width: 200px;      /* adjust gif size */
+    z-index: 50;
+    pointer-events: none; /* prevents clicking issues */
+    image-rendering: pixelated;
+}
+
+/* Responsive adjustments */
+/* Tablet */
+@media (max-width: 900px) {
+    .cat-gif {
+        width: 150px;
+        top: 45px;       /* small adjustment, NOT 500px */
+        right: 130px;
+    }
+}
+@media (max-width: 800px) {
+    .cat-gif {
+        width: 150px;
+        top: 45px;      
+        right: 110px;
+    }
+}
+
+/* Small Tablet / Large Phone */
+@media (max-width: 700px) {
+    .cat-gif {
+        width: 130px;
+        top: 85px;
+        right: 80px;
+    }
+}
+
+/* Mobile Portrait – move above console */
+@media (max-width: 600px) {
+    .cat-gif {
+       /* no overlap */
+        display: block;
+        top: 95px;
+        right: 180px;
+        margin: 0 auto 12px auto;  /* centered */
+        width: 140px;
+    }
+}
+
+/* Very Small Phones */
+@media (max-width: 430px) {
+    .cat-gif {
+        width: 120px;
+        top: 85px;
+        right: 80px;
+        margin-bottom: 10px;
+    }
+}
+
+/************************************
+    FOOTER (RESPONSIVE)
+************************************/
+footer {
+    width: 100%;
+    background: #111;
+    padding: 1rem 0;
+    text-align: center;
+    color: white;
+
+    border-top: 2px solid #764ba2;
+
+    margin-top: 0.7rem; /* spacing from console */
+    position: relative;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    footer {
+        padding: 1rem 0;
+        margin-top: 2rem;
+    }
+
+    footer p {
+        font-size: 0.95rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    footer {
+        padding: 1rem 0;
+        margin-top: 1.5rem;
+    }
+
+    footer p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 430px) {
+    footer {
+        padding: 0.9rem 0;
+        margin-top: 1.2rem;
+    }
+
+    footer p {
+        font-size: 0.85rem;
+    }
+}
