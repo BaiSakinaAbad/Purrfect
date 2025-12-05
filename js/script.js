@@ -224,15 +224,15 @@ document.addEventListener('DOMContentLoaded', function() {
     lexiBtn.disabled = true;
 };
 
-                
+                //  value type checker
     function checkValueType(type, value) {
         console.log(`Checking type: ${type}, value: ${value}`);
 
         switch(type) {
             case "int":
-                return /^[0-9]+$/.test(value);
+                return /^[0-9]+$/.test(value); // return true if value matches integer pattern
             case "float":
-                 return /^[0-9]+(\.[0-9]+)?[fF]$/.test(value);
+                 return /^[0-9]+(\.[0-9]+)?[f]$/.test(value);
             case "double":
                 return /^[0-9]+(\.[0-9]+)?$/.test(value);
             case "boolean":
