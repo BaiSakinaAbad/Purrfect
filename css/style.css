@@ -1,11 +1,260 @@
+/* RESET */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
-body {
-    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: #eef3f6;
+html, body {
+    height: 100%;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
     color: #222;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     line-height: 1.4;
+}
+
+
+/************************************
+    NAVBAR (RESPONSIVE)
+************************************/
+.navbar {
+    width: 100%;
+    background: rgba(3, 6, 12, 0.95);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    border-bottom: 2px solid #667eea;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+    padding: 0.8rem 0;
+}
+
+.navbar nav {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Desktop-only logo shift */
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    text-decoration: none;
+    margin-right: auto;     /* pushes links to the right */
+}
+
+.navbar nav div {
+    display: flex;
+    align-items: center;
+}
+
+/* Navbar links */
+.navbar nav div a {
+    color: #ffffff;
+    margin-left: 1.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s ease-in-out;
+}
+
+.navbar nav div a:hover {
+    color: #764ba2;
+}
+
+
+/************************************
+    HOME SECTION
+************************************/
+.home-section {
+    text-align: center;
+    padding: 11rem 1rem;
+}
+
+.purrfect {
+    color: #d62828;
+    font-weight: bold;
+}
+
+.content p {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+}
+
+
+
+
+/************************************
+    RESPONSIVE ADJUSTMENTS
+************************************/
+
+/* TABLET */
+@media (max-width: 768px) {
+
+    /* Navbar stacks */
+    .navbar nav {
+        flex-direction: column;
+        gap: 0.6rem;
+        text-align: center;
+    }
+
+    .logo {
+        margin: 0 auto;
+        font-size: 26px;
+    }
+
+    .navbar nav div {
+        flex-direction: row;
+        gap: 1rem;
+    }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+
+    /* Smaller links */
+    .navbar nav div a {
+        font-size: 0.9rem;
+        margin-left: 0.7rem;
+        margin-right: 0.7rem;
+    }
+
+    .home-section {
+        padding: 7rem 1rem;
+    }
+
+    footer p {
+        font-size: 0.85rem;
+    }
+}
+
+/************************************
+    FOOTER (RESPONSIVE)
+************************************/
+footer {
+    width: 100%;
+    background: #111;
+    padding: 1rem 0;
+    text-align: center;
+    color: white;
+
+    border-top: 2px solid #764ba2;
+
+    margin-top: 4.5rem; 
+    position: relative;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    footer {
+        padding: 1rem 0;
+        margin-top: 2rem;
+    }
+
+    footer p {
+        font-size: 0.95rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    footer {
+        padding: 1rem 0;
+        margin-top: 1.5rem;
+    }
+
+    footer p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 430px) {
+    footer {
+        padding: 0.9rem 0;
+        margin-top: 1.2rem;
+    }
+
+    footer p {
+        font-size: 0.85rem;
+    }
+}
+/************************************
+    ABOUT PAGE (FIXED + RESPONSIVE)
+************************************/
+.about-page {
+    width: 90%;
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 6rem 0;
+
+    text-align: center;
+    line-height: 1.7;
+}
+
+.about-page h1 {
+    font-size: 2rem;
+    margin-bottom: 1.1rem;
+}
+
+.about-page p {
+    font-size: 1.1rem;
+    margin-bottom: 1.1rem;
+}
+
+/************************************
+    FLOATING GIF – HOME PAGE
+************************************/
+.home-gif {
+    position: fixed;
+    bottom: 50px;
+    right: -5px;
+
+    width: 250px;
+    z-index: 999;
+
+    pointer-events: none; /* allows clicking through */
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .home-gif {
+        width: 150px;
+        bottom: 16px;
+        right: 18px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .home-gif {
+        width: 120px;
+        bottom: 14px;
+        right: 14px;
+    }
+}
+
+/* Very Small Phones */
+@media (max-width: 430px) {
+    .home-gif {
+        width: 100px;
+        bottom: 12px;
+        right: 10px;
+    }
 }

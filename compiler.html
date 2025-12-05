@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PURRFECT | Compiler Console</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/compiler.css">
+    <script src="js/script.js" defer></script>
+</head>
+
+<body>
+
+<header class="navbar">
+    <nav>
+        <a class="logo" href="index.html"> 🐱 PURRFECT</a>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="compiler.html">Compiler</a>
+            <a href="about.html">About us</a>
+        </div>
+    </nav>
+</header>
+<img src="assets/black-cat-cat.gif" alt="Cat Animation" class="cat-gif">
+
+<section class="console-container">
+
+    <div class="console">
+
+        <!-- SCREEN -->
+        <div class="screen">
+
+            <div class="output-box">
+                <span id="output">OUTPUT</span>
+            </div>
+
+            <textarea id="fileContent" placeholder="Start by opening a file..."></textarea>
+
+        </div>
+
+        <!-- LEFT BUTTON PANEL -->
+        <div class="left-panel">
+            <input type="file" id="fileInput" hidden onchange="openFile()">
+
+            <button class="side-btn" onclick="document.getElementById('fileInput').click()">
+                OPEN
+            </button>
+
+            <button class="side-btn" id="lexicalbtn" onclick="lexicalAnalyzer()" disabled>
+                LEXICAL
+            </button>
+        </div>
+
+        <!-- RIGHT BUTTON PANEL -->
+        <div class="right-panel">
+            <button class="side-btn" id="syntaxbttn" onclick="syntaxAnalyzer()" disabled>
+                SYNTAX
+            </button>
+
+            <button class="side-btn" id="semanticbtn" onclick="semanticAnalyzer()" disabled>
+                SEMANTIC
+            </button>
+
+            <button class="side-btn danger" id="clearbtn" onclick="eraseText()" disabled>
+                CLEAR
+            </button>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    <p>Created by Team PURRFECT © 2024</p>
+</footer>
+
+</body>
+</html>
