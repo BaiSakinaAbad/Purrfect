@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (content === "") {  // content is defined to avoid reference error (wasn't defined before)
             output.textContent = "ERROR: File is empty!";
+            console.log("Empty file is loaded.");
             lexiBtn.disabled = true;
             syntaxBtn.disabled = true;
             semanBtn.disabled = true;

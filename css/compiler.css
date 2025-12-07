@@ -299,7 +299,7 @@ html, body {
 .cat-gif {
     position: absolute;
     top: 15px;        /* moves gif downward */
-    right: 280px;       /* keeps it on the right side */
+    right: 330px;       /* keeps it on the right side */
     width: 200px;      /* adjust gif size */
     z-index: 50;
     pointer-events: none; /* prevents clicking issues */
@@ -337,8 +337,8 @@ html, body {
     .cat-gif {
        /* no overlap */
         display: block;
-        top: 95px;
-        right: 205px;
+        top: 90px;
+        right: 185px;
         margin: 0 auto 12px auto;  /* centered */
         width: 140px;
     }
