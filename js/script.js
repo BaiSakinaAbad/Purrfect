@@ -16,20 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const validTypes = ["int", "float", "double", "boolean", "char", "String"];
 
-    //Assigned functions to window object so they're accessible from HTML onclick handlers
-   window.openFile = function() {
-    const file = fileInput.files[0];
-    console.log("file:", file?.name);
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const content = e.target.result.trim();  // Define content variable here 
-        fileContent.value = content;
-        console.log("File content loaded:\n", content);
-
-        if (content === "") {  // content is defined to avoid reference error (wasn't defined before)
+    function setContentReadyState(content) {
+        if (content === "") {
             output.textContent = "ERROR: File is empty!";
-            console.log("Empty file is loaded.");
+            console.log("Empty content is loaded.");
             lexiBtn.disabled = true;
             syntaxBtn.disabled = true;
             semanBtn.disabled = true;
@@ -43,6 +33,24 @@ document.addEventListener('DOMContentLoaded', function() {
         eraseBtn.disabled = false;
 
         output.textContent = "OUTPUT";
+    }
+
+    fileContent.addEventListener('input', function() {
+        setContentReadyState(fileContent.value.trim());
+    });
+
+    //Assigned functions to window object so they're accessible from HTML onclick handlers
+   window.openFile = function() {
+    const file = fileInput.files[0];
+    console.log("file:", file?.name);
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const content = e.target.result.trim();  // Define content variable here 
+        fileContent.value = content;
+        console.log("File content loaded:\n", content);
+
+        setContentReadyState(content);
     };
     reader.readAsText(file);
 };
